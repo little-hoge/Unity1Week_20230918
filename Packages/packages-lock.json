@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.annulusgames.magic-tween": {
+      "version": "https://github.com/AnnulusGames/MagicTween.git?path=/MagicTween/Assets/MagicTween",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e04fe40e25034ca02d32f2267930891f248bd7cd"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
