@@ -51,7 +51,6 @@ namespace Unity1Week_20230918
             float score = Mathf.Max(maxScore - (distance * maxScore / maxDistance), 0.0f);
             score = Mathf.Round(score * 100.0f) / 100.0f;
 
-            DebugLogger.Log($"score:{score}");
             return score;
         }
 

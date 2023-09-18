@@ -16,4 +16,4 @@ MonoBehaviour:
   ClassName: HiScore
   Type: 0
   Order: 1
-  CustomFormat: '###.##'
+  CustomFormat: 0.00

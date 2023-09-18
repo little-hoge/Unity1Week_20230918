@@ -1,6 +1,7 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using unityroom.Api;
 
 namespace Unity1Week_20230918
 {
@@ -35,6 +36,7 @@ namespace Unity1Week_20230918
         void DrawRanking()
         {
             naichilab.RankingLoader.Instance.SendScoreAndShowRanking(pc.Score.Value);
+            UnityroomApiClient.Instance.SendScore(1, pc.Score.Value, ScoreboardWriteMode.HighScoreDesc);
         }
     }
 }
