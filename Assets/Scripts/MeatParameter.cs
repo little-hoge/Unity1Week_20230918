@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unity1Week_20230918
 {
-    public class EnemyParameter : MonoBehaviour
+    public class MeatParameter : MonoBehaviour
     {
         [Serializable]
         public class Parameter
