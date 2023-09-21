@@ -34,5 +34,7 @@ unity 2022.3.4f1
 
 ## 素材
 BGM
-- 
+- 甘茶の音楽工房(https://amachamusic.chagasi.com/index.html)
 
+SE
+- OtoLogic(https://otologic.jp/)

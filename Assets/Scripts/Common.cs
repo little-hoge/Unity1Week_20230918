@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Unity1Week_20230918
 {
@@ -15,4 +11,19 @@ namespace Unity1Week_20230918
             UnityEngine.Debug.Log(o);
         }
     }
+    public static class Function
+    {
+        public static float CalcScore(float value)
+        {
+            float maxDistance = 125.0f;
+            float maxScore = 100.0f;
+
+            float distance = Mathf.Abs(value - 125.0f);
+            float score = Mathf.Max(maxScore - (distance * maxScore / maxDistance), 0.0f);
+            score = Mathf.Round(score * 100.0f) / 100.0f;
+
+            return score;
+        }
+    }
+    
 }

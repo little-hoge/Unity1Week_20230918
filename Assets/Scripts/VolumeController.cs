@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity1Week_20230619.Setting
+namespace Unity1Week_20230918
 {
     public class VolumeController : MonoBehaviour
     {
@@ -35,7 +35,6 @@ namespace Unity1Week_20230619.Setting
                     SoundManager.Instance.BgmVolume = slider.value;
                     break;
                 case VolumeType.SE:
-                    if (SoundManager.Instance.SeVolume != slider.value) SoundManager.Instance.PlaySe(0);
                     SoundManager.Instance.SeVolume = slider.value;
                     break;
             }

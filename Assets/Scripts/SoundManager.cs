@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity1Week_20230619
+namespace Unity1Week_20230918
 {
     public class SoundManager : MonoBehaviour
     {
@@ -68,6 +68,7 @@ namespace Unity1Week_20230619
         /// <summary>
         /// BGM再生                        <br />
         /// 0.test用                       <br />
+        /// 1.メイン                       <br />
         /// </summary>
         public void PlayBgm(int index)
         {
@@ -80,11 +81,7 @@ namespace Unity1Week_20230619
         /// <summary>
         /// SE再生                      <br />
         /// 0.test用                    <br />
-        /// 1.hit                       <br />
-        /// 2.miss                      <br />
-        /// 3.bad                       <br />
-        /// 4.shuffle                   <br />
-        /// 5.launch                    <br />
+        /// 1.上手に焼けました          <br />
         /// </summary>
         public void PlaySe(int index)
         {
