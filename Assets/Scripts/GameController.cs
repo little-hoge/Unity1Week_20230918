@@ -9,7 +9,7 @@ namespace Unity1Week_20230918
     {
         float score;
         float nowscore;
-        const float scorelimit =70;
+        const float scorelimit = 70;
         PlayerController pc;
         MeatController mc;
         TimerController timerController = new TimerController();

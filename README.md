@@ -1,10 +1,10 @@
 # Unity1Week_20230918
 
 # 操作方法
-- 左クリック or タップ
+- クリック、タップ等
 
 # デモ
-
+https://unityroom.com/games/yakkinikusetto/settings/publish
 
 # 開発環境
 unity 2022.3.4f1
