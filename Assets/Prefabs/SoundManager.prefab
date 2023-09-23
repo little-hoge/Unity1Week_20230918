@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmvolume: 0.3
-  sevolume: 0.3
+  sevolume: 0.1
   bgmaudiosource: {fileID: 0}
   seaudiosource: {fileID: 0}
   bgm: []

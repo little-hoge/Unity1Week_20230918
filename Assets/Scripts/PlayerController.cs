@@ -1,5 +1,7 @@
 using System.Linq;
+using TMPro;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Unity1Week_20230918
@@ -7,7 +9,8 @@ namespace Unity1Week_20230918
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] GameObject[] buttonObj;
-        MeatController ec;
+        [SerializeField] TextMeshProUGUI ScoreText;
+        MeatController mc;
 
         public void Init()
         {
@@ -16,39 +19,59 @@ namespace Unity1Week_20230918
 
         void Start()
         {
-            ec = GetComponent<MeatController>();
+            mc = GetComponent<MeatController>();
 
-            ec.MeatState.Subscribe(_ =>
+            mc.MeatState
+              .Subscribe(_ =>
             {
-                switch (ec.MeatState.Value)
+                switch (mc.MeatState.Value)
                 {
                     case Meat.INIT:
                     case Meat.NONE:
-                        GameObjectSelectActive(buttonObj, 0);
+                        GameObjectSelectActive(0);
                         break;
                     case Meat.SET:
-                        GameObjectSelectActive(buttonObj, 1);
+                        GameObjectSelectActive(1);
                         break;
                     case Meat.MOVE:
-                        GameObjectSelectActive(buttonObj, -1);
+                        GameObjectSelectActive(-1);
                         break;
                     case Meat.END:
-                        GameObjectSelectActive(buttonObj, 2);
+                        GameObjectSelectActive(3);
                         break;
                 }
             })
             .AddTo(this);
 
+            this.UpdateAsObservable()
+              .Where(_ => buttonObj[2].activeSelf)
+              .Subscribe(_ =>
+              {
+                  ScoreText.text =  $"製造数：{Data.instance.Score}";
+              })
+            .AddTo(this);
+
             Init();
         }
 
-        void GameObjectSelectActive(GameObject[] obj, int index)
+        /// <summary>
+        /// ボタン表示状態更新           <br />
+        /// 0.設置                       <br />
+        /// 1.焼けた                     <br />
+        /// 2.ワンボタン作成             <br />
+        /// 3.やり直し                   <br />
+        /// </summary>
+        /// <param name="index">表示ボタン:</param>
+        public void GameObjectSelectActive(int index)
         {
-            for (var i = 0; i < obj.Count(); i++)
+            for (var i = 0; i < buttonObj.Count(); i++)
             {
-                if (i == index) obj[i].SetActive(true);
-                else            obj[i].SetActive(false);
+                if (i == index) buttonObj[i].SetActive(true);
+                else            buttonObj[i].SetActive(false);
             }
+
+            if  (2 == index) ScoreText.gameObject.SetActive(true);
+            else             ScoreText.gameObject.SetActive(false);
 
         }
     }

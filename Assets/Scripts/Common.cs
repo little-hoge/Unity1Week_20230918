@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -25,5 +26,13 @@ namespace Unity1Week_20230918
             return score;
         }
     }
-    
+
+    public class Data
+    {
+        public readonly static Data instance = new Data();
+
+        public int Score = 0;
+
+    }
+
 }
