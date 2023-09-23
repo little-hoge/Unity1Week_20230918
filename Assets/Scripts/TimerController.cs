@@ -5,10 +5,7 @@ namespace Unity1Week_20230918
     public class TimerController
     {
         float elapsedTime = 0f;
-        string announceText;
-
         public float ElapsedTime => elapsedTime;
-        public string AnnounceText => announceText;
 
         public void UpdateTime()
         {

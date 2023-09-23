@@ -26,20 +26,15 @@ namespace Unity1Week_20230918
 
         public void Init()
         {
-            energychargedSpeed = Random.Range(0.0008f, 0.001f);
+            energychargedSpeed = Random.Range(0.005f, 0.008f);
             meatstate.Value = Meat.INIT;
             meatcount = -1;
 #if UNITY_EDITOR
-            energychargedSpeed = 0.5f;
+            energychargedSpeed = 0.005f;
 #endif
-            foreach (var enemy in gr.meatList)
-            {
-                enemy.transform.position = new Vector3(300, 0, 10);
-                enemy.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-                enemy.GetComponent<MeatParameter>().param.Energy = 0;
-            }
             gr.Init();
         }
+        
 
         void Start()
         {
@@ -47,18 +42,19 @@ namespace Unity1Week_20230918
 
             this.UpdateAsObservable()
                 .Subscribe(_ =>
-                {
-                    switch (meatstate.Value) {
-                        case Meat.SET:
-                            RotateGrillMeat();
-                            MaterialColorUpDate();
-                            break;
-                        case Meat.END:
-                            RotateGrillMeat();
-                            break;
-                    }
-                })
-                .AddTo(this);
+            {
+                switch (meatstate.Value) {
+                    case Meat.SET:
+                        //DebugLogger.Log(GetEnergy());
+                        RotateGrillMeat();
+                        MaterialColorUpDate();
+                        break;
+                    case Meat.END:
+                        RotateGrillMeat();
+                        break;
+                }
+            })
+            .AddTo(this);
 
             Init();
         }
@@ -87,7 +83,6 @@ namespace Unity1Week_20230918
             meatcount += 1;
             var tween = gr.meatList[meatcount].transform
                 .TweenPosition(new Vector3(0f, 0f, 10f), 2f)
-                .SetEase(Ease.OutQuad)
                 .OnComplete(() =>
                 {
                     meatstate.Value = Meat.SET;
@@ -98,7 +93,7 @@ namespace Unity1Week_20230918
 
         public void GrillEnd()
         {
-            gr.meatList[meatcount].transform.TweenPosition(new Vector3(-3f, 10f, 10f), 1f).SetEase(Ease.OutQuad);
+            gr.meatList[meatcount].transform.TweenPosition(new Vector3(-3f, 10f, 10f), 1f);
 
             if ((meatcount+1) < gr.meatList.Count) meatstate.Value = Meat.NONE;
             else                                   meatstate.Value = Meat.END;

@@ -8,33 +8,37 @@ namespace Unity1Week_20230918
     public class GameController : MonoBehaviour
     {
         float score;
+        float nowscore;
+        const float scorelimit = 70;
         PlayerController pc;
-        MeatController ec;
+        MeatController mc;
         TimerController timerController = new TimerController();
 
         public void Init()
         {
             score = 0;
+            Data.instance.Score = 0;
             timerController.ResetTimer(1f);
         }
 
         void Start()
         {
             SoundManager.Instance.PlayBgm(1);
-            
-            pc = GetComponent<PlayerController>();
-            ec = GetComponent<MeatController>();
 
-            ec.MeatState.Subscribe(_ =>
+            pc = GetComponent<PlayerController>();
+            mc = GetComponent<MeatController>();
+
+            mc.MeatState
+              .Subscribe(_ =>
             {
-                switch (ec.MeatState.Value)
+                switch (mc.MeatState.Value)
                 {
                     case Meat.NONE:
-                        score += Function.CalcScore(ec.GetEnergy());
-                        break;                    
+                        score += Function.CalcScore(mc.GetEnergy());
+                        break;
                     case Meat.END:
-                        var nowscore = Function.CalcScore(ec.GetEnergy());
-                        if (nowscore > 90) SoundManager.Instance.PlaySe(1);
+                        nowscore = Function.CalcScore(mc.GetEnergy());
+                        if (nowscore >= scorelimit) SoundManager.Instance.PlaySe(1);
                         score += nowscore;
                         DrawRanking();
                         break;
@@ -43,12 +47,11 @@ namespace Unity1Week_20230918
             .AddTo(this);
 
             this.UpdateAsObservable()
-              .Where(_  => ec.MeatState.Value == Meat.SET)
+              .Where(_ => mc.MeatState.Value == Meat.SET)
               .Subscribe(_ =>
               {
-                  DebugLogger.Log(timerController.GetFormattedTime());
                   timerController.UpdateTime();
-                  if(timerController.IsSecondsElapsed(180)) SoundManager.Instance.PlaySe(2);
+                  if (timerController.IsSecondsElapsed(180)) SoundManager.Instance.PlaySe(2);
               })
               .AddTo(this);
 
@@ -59,13 +62,19 @@ namespace Unity1Week_20230918
         {
             Init();
             pc.Init();
-            ec.Init();
+            mc.Init();
         }
 
         void DrawRanking()
         {
             naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);
             UnityroomApiClient.Instance.SendScore(1, score, ScoreboardWriteMode.HighScoreDesc);
+            if (nowscore >= scorelimit)
+            {
+                SoundManager.Instance.PlaySe(1);
+                UnityroomApiClient.Instance.SendScore(2, Data.instance.Score, ScoreboardWriteMode.HighScoreDesc);
+            }
+            else UnityroomApiClient.Instance.SendScore(2, 0, ScoreboardWriteMode.HighScoreDesc);
         }
     }
 }
