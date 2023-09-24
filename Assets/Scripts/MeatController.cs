@@ -26,12 +26,9 @@ namespace Unity1Week_20230918
 
         public void Init()
         {
-            energychargedSpeed = Random.Range(0.005f, 0.008f);
+            energychargedSpeed = 0.01f;
             meatstate.Value = Meat.INIT;
             meatcount = -1;
-#if UNITY_EDITOR
-            energychargedSpeed = 0.005f;
-#endif
             gr.Init();
         }
         
@@ -45,7 +42,7 @@ namespace Unity1Week_20230918
             {
                 switch (meatstate.Value) {
                     case Meat.SET:
-                        //DebugLogger.Log(GetEnergy());
+                        DebugLogger.Log(GetEnergy());
                         RotateGrillMeat();
                         MaterialColorUpDate();
                         break;

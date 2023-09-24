@@ -1,3 +1,4 @@
+using TMPro;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Unity1Week_20230918
 {
     public class GameController : MonoBehaviour
     {
+        [SerializeField] TextMeshProUGUI timeText;
         float score;
         float nowscore;
         const float scorelimit = 70;
@@ -50,8 +52,9 @@ namespace Unity1Week_20230918
               .Where(_ => mc.MeatState.Value == Meat.SET)
               .Subscribe(_ =>
               {
+                  timeText.text = $"経過時間：{timerController.GetFormattedTime()}";
                   timerController.UpdateTime();
-                  if (timerController.IsSecondsElapsed(180)) SoundManager.Instance.PlaySe(2);
+                  if (timerController.IsSecondsElapsed(60)) SoundManager.Instance.PlaySe(2);
               })
               .AddTo(this);
 

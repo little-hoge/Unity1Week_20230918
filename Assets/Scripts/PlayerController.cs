@@ -9,6 +9,7 @@ namespace Unity1Week_20230918
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] GameObject[] buttonObj;
+        [SerializeField] TextMeshProUGUI TimeText;
         [SerializeField] TextMeshProUGUI ScoreText;
         MeatController mc;
 
@@ -70,8 +71,16 @@ namespace Unity1Week_20230918
                 else            buttonObj[i].SetActive(false);
             }
 
-            if  (2 == index) ScoreText.gameObject.SetActive(true);
-            else             ScoreText.gameObject.SetActive(false);
+            if (2 == index)
+            {
+                TimeText.gameObject.SetActive(false);
+                ScoreText.gameObject.SetActive(true);
+            }
+            else
+            {
+                TimeText.gameObject.SetActive(true);
+                ScoreText.gameObject.SetActive(false);
+            }
 
         }
     }
