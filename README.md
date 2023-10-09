@@ -4,7 +4,7 @@
 - クリック、タップ等
 
 # デモ
-https://unityroom.com/games/yakkinikusetto/settings/publish
+https://unityroom.com/games/yakkinikusetto/
 
 # 開発環境
 unity 2022.3.4f1
